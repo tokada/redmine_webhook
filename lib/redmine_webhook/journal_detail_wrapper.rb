@@ -1,6 +1,7 @@
 module RedmineWebhook
   class JournalDetailWrapper
     include IssuesHelper
+    include CustomFieldsHelper
 
     def initialize(journal_detail)
       @journal_detail = journal_detail
@@ -13,7 +14,7 @@ module RedmineWebhook
         :old_value => @journal_detail.old_value,
         :prop_key => @journal_detail.prop_key,
         :property => @journal_detail.property,
-        :string => details_to_strings([@journal_detail], true).compact.to_a.first
+        :string => (details_to_strings([@journal_detail], true).compact.to_a.first rescue nil)
       }
     end
   end
